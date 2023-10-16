@@ -6,19 +6,62 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
+    @State var isShowAlert = false
+    @State var isShowDialog = false
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Button("Alert") {
+                let feedback = UIImpactFeedbackGenerator(style: .soft)
+                feedback.impactOccurred()
+                isShowAlert = true
+            }
+            .padding()
+            .font(.title)
+            
+            Button("Dialog") {
+                let feedback = UIImpactFeedbackGenerator(style: .soft)
+                feedback.impactOccurred()
+                isShowDialog = true
+            }
+            .padding()
+            .font(.title)
         }
         .padding()
+        .alert("本当に削除しますか？", isPresented: $isShowAlert) {
+            Button("削除する", role: .destructive) {}
+            Button("キャンセル", role: .cancel) {}
+        } message: {
+            Text("一度削除したら元に戻すことはできません。")
+        }
+        .confirmationDialog("Title", isPresented: $isShowDialog, titleVisibility: .visible) {
+            Button("選択肢1") {
+                
+            }
+            Button("選択肢2") {
+                
+            }
+            Button("選択肢3") {
+                
+            }
+            Button("選択肢4") {
+                
+            }
+            
+            Button("キャンセル", role: .cancel) {
+                
+            }
+        } message: {
+            Text("ここにメッセージ")
+        }
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
